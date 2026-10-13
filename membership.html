@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TUMA Membership Application</title>
+
+  <style>
+    :root {
+      --navy: #102448;
+      --gold: #d8ae49;
+      --white: #ffffff;
+      --light: #f4f6fa;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--light);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 24px 16px;
+      text-align: center;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+    }
+
+    header p {
+      margin: 0;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 0 16px;
+    }
+
+    .notice {
+      background: #fff8e5;
+      border-left: 4px solid var(--gold);
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background: var(--white);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px #10244812;
+    }
+
+    fieldset {
+      border: 1px solid #dce2ec;
+      border-radius: 8px;
+      margin-bottom: 22px;
+      padding: 18px;
+    }
+
+    legend {
+      color: var(--navy);
+      font-weight: bold;
+      padding: 0 8px;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 6px;
+      font-weight: 600;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd3df;
+      border-radius: 6px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .help {
+      font-size: 13px;
+      color: #53627a;
+    }
+
+    .declaration {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-weight: normal;
+    }
+
+    .declaration input {
+      width: auto;
+      margin-top: 6px;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 7px;
+      padding: 14px;
+      background: var(--navy);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1b3765;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 12px;
+      color: #53627a;
+    }
+
+    @media (max-width: 500px) {
+      form {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>TUMA Association</h1>
+    <p>The United Minds Association</p>
+    <p>Membership Application Form</p>
+  </header>
+
+  <main>
+    <div class="notice">
+      <strong>Important:</strong>
+      Submitting this form does not automatically grant membership.
+      Applications must be reviewed by the Secretary and receive the
+      Chairman's final approval.
+    </div>
+
+    <form id="membershipForm">
+
+      <fieldset>
+        <legend>1. Personal Information</legend>
+
+        <label for="fullName">Full Name *</label>
+        <input id="fullName" name="fullName" required maxlength="120"
+               autocomplete="name">
+
+        <label for="dob">Date of Birth *</label>
+        <input id="dob" name="dob" type="date" required>
+
+        <label for="phone">Phone Number *</label>
+        <input id="phone" name="phone" type="tel" required
+               autocomplete="tel" maxlength="25">
+
+        <label for="email">Email Address</label>
+        <input id="email" name="email" type="email"
+               autocomplete="email">
+
+        <label for="state">State of Residence *</label>
+        <input id="state" name="state" required maxlength="80">
+
+        <label for="address">Residential Address *</label>
+        <textarea id="address" name="address" required
+                  maxlength="300"></textarea>
+
+        <p class="help">
+          Provide accurate information. Your details should only be
+          accessible to authorized TUMA officers.
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Education and Occupation</legend>
+
+        <label for="qualification">Highest Educational Qualification *</label>
+        <select id="qualification" name="qualification" required>
+          <option value="">Select qualification</option>
+          <option>Primary School</option>
+          <option>Secondary School</option>
+          <option>OND/NCE</option>
+          <option>HND/Bachelor's Degree</option>
+          <option>Postgraduate Degree</option>
+          <option>Other</option>
+        </select>
+
+        <label for="institution">Institution Attended</label>
+        <input id="institution" name="institution" maxlength="150">
+
+        <label for="occupation">Current Occupation *</label>
+        <input id="occupation" name="occupation" required maxlength="120">
+
+        <label for="workplace">Place of Work or Business</label>
+        <input id="workplace" name="workplace" maxlength="150">
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Membership Details</legend>
+
+        <label for="category">Membership Category *</label>
+        <select id="category" name="category" required>
+          <option value="">Select category</option>
+          <option value="ordinary">Ordinary Member</option>
+          <option value="executive">Executive Member</option>
+          <option value="honorary">Honorary Member</option>
+          <option value="student">Student Member</option>
+        </select>
+
+        <p class="help">
+          Executive membership is subject to an approved executive
+          appointment. Honorary membership is subject to TUMA's
+          applicable rules.
+        </p>
+
+        <label for="reason">Why do you want to join TUMA? *</label>
+        <textarea id="reason" name="reason" required maxlength="1000"></textarea>
+
+        <label for="skills">Skills or Areas of Interest</label>
+        <textarea id="skills" name="skills" maxlength="500"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. Emergency Contact</legend>
+
+        <label for="emergencyName">Full Name *</label>
+        <input id="emergencyName" name="emergencyName"
+               required maxlength="120">
+
+        <label for="relationship">Relationship to Applicant *</label>
+        <input id="relationship" name="relationship"
+               required maxlength="60">
+
+        <label for="emergencyPhone">Phone Number *</label>
+        <input id="emergencyPhone" name="emergencyPhone" type="tel"
+               required maxlength="25">
+      </fieldset>
+
+      <fieldset>
+        <legend>5. Passport Photograph</legend>
+
+        <label for="photo">Select Photograph</label>
+        <input id="photo" name="photo" type="file"
+               accept="image/jpeg,image/png,image/webp">
+
+        <p class="help">
+          Optional during the initial demonstration. Before real
+          applications are accepted, photograph uploads must be
+          connected to secure, access-controlled storage.
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>6. Declaration</legend>
+
+        <label class="declaration">
+          <input type="checkbox" name="declaration"
+                 id="declaration" required>
+          <span>
+            I confirm that the information provided is accurate.
+            I understand that membership is subject to TUMA's approved
+            rules and the required approval process.
+          </span>
+        </label>
+      </fieldset>
+
+      <button type="submit">Submit Application</button>
+
+      <p id="formMessage" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <footer>
+    <p>The United Minds Association (TUMA)</p>
+    <p>Katsina, Nigeria</p>
+    <p>Contact: tumadeskoffice02@gmail.com</p>
+    <p>© TUMA Association</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("membershipForm");
+    const message = document.getElementById("formMessage");
+    const dob = document.getElementById("dob");
+
+    // Prevent future dates of birth.
+    dob.max = new Date().toISOString().split("T")[0];
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      message.textContent =
+        "This is a demonstration form. Your application has NOT been " +
+        "sent or saved. Secure submission must be configured before " +
+        "TUMA begins accepting real applications.";
+      message.style.color = "#8a4b00";
+      message.style.fontWeight = "bold";
+      message.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  </script>
+</body>
+</html>￼Enter
