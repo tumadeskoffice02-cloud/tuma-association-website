@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setLanguage(localStorage.getItem("tuma-language") || "en");
 });￼Enter
 // TUMA Association - Supabase Connection
-const SUPABASE_URL = "hhmegtbfgyjbsiuwozpq";
+const SUPABASE_URL = "https://hhmegtbfgyjbsiuwozpq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_dTyN0hMfFisKrO965XCN1g_ARyIKyCX";
 
 const tumaSupabase = window.supabase.createClient(
