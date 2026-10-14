@@ -51,3 +51,50 @@ function setLanguage(language) {
 document.addEventListener("DOMContentLoaded", () => {
   setLanguage(localStorage.getItem("tuma-language") || "en");
 });￼Enter
+// TUMA Association - Supabase Connection
+const SUPABASE_URL = "hhmegtbfgyjbsiuwozpq";
+const SUPABASE_KEY = "sb_publishable_dTyN0hMfFisKrO965XCN1g_ARyIKyCX";
+
+const tumaSupabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+// TUMA Membership Application
+const membershipForm = document.getElementById("membershipForm");
+
+if (membershipForm) {
+  membershipForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const message = document.getElementById("formMessage");
+
+    const application = {
+      full_name: document.getElementById("fullName").value.trim(),
+      phone: document.getElementById("phone").value.trim(),
+      email: document.getElementById("email").value.trim() || null,
+      position: document.getElementById("position").value
+    };
+
+    message.textContent = "Submitting your application...";
+
+    try {
+      const { error } = await tumaSupabase
+        .from("applications")
+        .insert([application]);
+
+      if (error) {
+        throw error;
+      }
+
+      message.textContent =
+        "Your TUMA membership application was submitted successfully!";
+
+      membershipForm.reset();
+    } catch (error) {
+      console.error("TUMA application error:", error);
+      message.textContent =
+        "Submission failed. Please check your connection and try again.";
+    }
+  });
+}
