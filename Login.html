@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUMA Association - Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #063b2b, #087f5b);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+
+        .logo {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #075e42;
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #087f5b;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #063b2b;
+        }
+
+        .footer {
+            margin-top: 22px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+
+        <h1>TUMA ASSOCIATION</h1>
+        <p class="subtitle">The United Minds Association</p>
+
+        <h2>Welcome Back!</h2>
+        <p class="subtitle">Login to your member account</p>
+
+        <form id="loginForm">
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+            >
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p id="message" role="status"></p>
+
+        <p class="footer">
+            © 2026 TUMA Association. All rights reserved.
+        </p>
+
+    </div>
+
+    <script type="module">
+        import { createClient } from
+            'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        // We will connect your Supabase project in the next step.
+        const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_PUBLISHABLE_KEY';
+
+        const message = document.getElementById('message');
+        const form = document.getElementById('loginForm');
+
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            if (
+                SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL' ||
+                SUPABASE_ANON_KEY === 'YOUR_SUPABASE_PUBLISHABLE_KEY'
+            ) {
+                message.style.color = '#b45309';
+                message.textContent =
+                    'Login setup is not complete yet. Please continue setup.';
+                return;
+            }
+
+            const supabase = createClient(
+                SUPABASE_URL,
+                SUPABASE_ANON_KEY
+            );
+
+            message.textContent = 'Signing in...';
+
+            const { error } = await supabase.auth.signInWithPassword({
+                email: document.getElementById('email').value.trim(),
+                password: document.getElementById('password').value
+            });
+
+            if (error) {
+                message.style.color = 'red';
+                message.textContent = 'Login failed. Check your details.';
+                return;
+            }
+
+            message.style.color = 'green';
+            message.textContent = 'Login successful!';
+
+            // We will add your dashboard redirect in a later step.
+        });
+    </script>
+</body>
+</html>
