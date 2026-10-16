@@ -123,14 +123,14 @@
       'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
     // STEP 7: Replace these two placeholders with your own project details.
-    const SUPABASE_URL = 'https://hhmegtbfgyjbsiuwozpq.supabase.co/rest/v1/';
+    const SUPABASE_URL = 'https://hhmegtbfgyjbsiuwozpq.supabase.co';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_dTyN0hMfFisKrO965XCN1g_ARyIKyCX';
 
     const message = document.getElementById('message');
     const button = document.getElementById('loginButton');
 
     const configurationIsMissing =
-      SUPABASE_URL.includes('https://hhmegtbfgyjbsiuwozpq.supabase.co/rest/v1/') ||
+      SUPABASE_URL.includes('https://hhmegtbfgyjbsiuwozpq.supabase.co') ||
       SUPABASE_PUBLISHABLE_KEY.includes('sb_publishable_dTyN0hMfFisKrO965XCN1g_ARyIKyCX');
 
     if (!configurationIsMissing) {
