@@ -1,14 +1,12 @@
-here<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TUMA | Admin Login</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -22,84 +20,62 @@ here<!DOCTYPE html>
     }
 
     .login-box {
-      background: #ffffff;
+      background: white;
       width: 100%;
       max-width: 400px;
-      padding: 32px 25px;
+      padding: 30px 24px;
       border-radius: 16px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
     }
 
     .logo {
       text-align: center;
-      font-size: 42px;
-      font-weight: bold;
       color: #d9ad45;
-      margin-bottom: 8px;
+      font-size: 40px;
+      font-weight: bold;
     }
 
     h1 {
       text-align: center;
       color: #102746;
       font-size: 24px;
-      margin-bottom: 8px;
     }
 
-    .subtitle {
+    p {
       text-align: center;
       color: #65738a;
-      font-size: 14px;
-      margin-bottom: 28px;
       line-height: 1.5;
     }
 
     label {
       display: block;
+      margin: 18px 0 8px;
       font-weight: bold;
-      font-size: 14px;
-      color: #263449;
-      margin-bottom: 8px;
     }
 
     input {
       width: 100%;
       padding: 13px;
-      margin-bottom: 20px;
       border: 1px solid #cbd5e1;
       border-radius: 8px;
       font-size: 16px;
     }
 
-    input:focus {
-      outline: 2px solid #d9ad45;
-      border-color: #d9ad45;
-    }
-
     button {
       width: 100%;
       padding: 14px;
+      margin-top: 22px;
       background: #102746;
       color: white;
-      border: none;
+      border: 0;
       border-radius: 8px;
       font-size: 16px;
       font-weight: bold;
-      cursor: pointer;
     }
 
-    button:hover {
-      background: #173b62;
-    }
-
-    .message {
-      display: none;
+    #message {
       margin-top: 16px;
-      padding: 12px;
-      background: #fff3cd;
-      color: #664d03;
-      border-radius: 8px;
-      font-size: 13px;
-      line-height: 1.5;
+      font-size: 14px;
+      overflow-wrap: anywhere;
     }
 
     .back-link {
@@ -108,36 +84,21 @@ here<!DOCTYPE html>
       margin-top: 22px;
       color: #102746;
       text-decoration: none;
-      font-size: 14px;
-    }
-
-    footer {
-      text-align: center;
-      color: #7b8797;
-      font-size: 12px;
-      margin-top: 24px;
     }
   </style>
 </head>
 
 <body>
-
   <main class="login-box">
     <div class="logo">TUMA</div>
-
     <h1>Administrator Login</h1>
-
-    <p class="subtitle">
-      The United Minds Association<br>
-      Authorized administrators only
-    </p>
+    <p>The United Minds Association<br>Authorized administrators only</p>
 
     <form id="loginForm">
       <label for="email">Administrator Email</label>
       <input
         type="email"
         id="email"
-        placeholder="Enter your email"
         autocomplete="username"
         required
       >
@@ -146,35 +107,79 @@ here<!DOCTYPE html>
       <input
         type="password"
         id="password"
-        placeholder="Enter your password"
         autocomplete="current-password"
         required
       >
 
-      <button type="submit">Sign In</button>
-
-      <div id="message" class="message" role="status">
-        This login page is a design demonstration only.
-        Authentication has not been connected, and no login
-        has occurred. Please do not enter real passwords.
-      </div>
+      <button type="submit" id="loginButton">Sign In</button>
+      <p id="message" role="status"></p>
     </form>
 
-    <a class="back-link" href="index.html">
-      ← Return to TUMA Website
-    </a>
-
-    <footer>
-      © 2026 The United Minds Association
-    </footer>
+    <a class="back-link" href="index.html">← Return to TUMA Website</a>
   </main>
 
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      document.getElementById("message").style.display = "block";
-    });
-  </script>
+  <script type="module">
+    import { createClient } from
+      'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
+    // STEP 7: Replace these two placeholders with your own project details.
+    const SUPABASE_URL = 'https://hhmegtbfgyjbsiuwozpq.supabase.co/rest/v1/';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_dTyN0hMfFisKrO965XCN1g_ARyIKyCX';
+
+    const message = document.getElementById('message');
+    const button = document.getElementById('loginButton');
+
+    const configurationIsMissing =
+      SUPABASE_URL.includes('https://hhmegtbfgyjbsiuwozpq.supabase.co/rest/v1/') ||
+      SUPABASE_PUBLISHABLE_KEY.includes('sb_publishable_dTyN0hMfFisKrO965XCN1g_ARyIKyCX');
+
+    if (!configurationIsMissing) {
+      const supabase = createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+      document.getElementById('loginForm').addEventListener(
+        'submit',
+        async (event) => {
+          event.preventDefault();
+          button.disabled = true;
+          message.textContent = 'Signing in...';
+
+          try {
+            const { data, error } =
+              await supabase.auth.signInWithPassword({
+                email: document.getElementById('email').value.trim(),
+                password: document.getElementById('password').value
+              });
+
+            if (error) throw error;
+
+            // Authentication succeeded, but admin authorization
+            // has not yet been implemented.
+            await supabase.auth.signOut();
+
+            message.textContent =
+              'Sign-in was successful, but administrator permissions ' +
+              'are not configured yet. The dashboard has not been opened.';
+          } catch (error) {
+            message.textContent =
+              'Sign-in failed. Check your email and password, and try again.';
+          } finally {
+            button.disabled = false;
+          }
+        }
+      );
+    } else {
+      document.getElementById('loginForm').addEventListener(
+        'submit',
+        (event) => {
+          event.preventDefault();
+          message.textContent =
+            'Setup is incomplete. Add your Supabase project details first.';
+        }
+      );
+    }
+  </script>
 </body>
 </html>
