@@ -1,0 +1,603 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TUMA Finance Management</title>
+  <style>
+    :root {
+      --navy: #10264a;
+      --gold: #d5ad45;
+      --light: #f4f6fa;
+      --white: #ffffff;
+      --text: #253247;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--light);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 24px 18px;
+      border-bottom: 5px solid var(--gold);
+    }
+
+    header h1 { margin: 0 0 8px; font-size: 24px; }
+    header p { margin: 0; line-height: 1.5; }
+
+    main {
+      width: min(1100px, 94%);
+      margin: 24px auto;
+    }
+
+    .notice {
+      background: #fff4d6;
+      border-left: 4px solid var(--gold);
+      padding: 13px;
+      border-radius: 6px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 3px 12px #15284a12;
+      border-top: 3px solid var(--gold);
+    }
+
+    .card h3 { margin: 0 0 12px; font-size: 15px; }
+    .amount { font-size: 24px; font-weight: bold; color: var(--navy); }
+    .muted { color: #657086; font-size: 13px; }
+
+    section {
+      background: white;
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px #15284a12;
+    }
+
+    h2 { color: var(--navy); margin-top: 0; }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    label { display: block; font-weight: bold; font-size: 14px; }
+
+    input, select, textarea {
+      width: 100%;
+      margin-top: 7px;
+      padding: 11px;
+      border: 1px solid #cbd2df;
+      border-radius: 6px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea { resize: vertical; }
+    .full { grid-column: 1 / -1; }
+
+    button, .back {
+      border: 0;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .primary { background: var(--navy); color: white; }
+    .gold { background: var(--gold); color: var(--navy); }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 560px; }
+    th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid #e3e7ef; }
+    th { color: var(--navy); background: #f4f6fa; }
+    footer { text-align: center; padding: 25px; color: #657086; }
+
+    @media print {
+      form, .notice, .actions, .back { display: none; }
+      body { background: white; }
+      .card, section { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>THE UNITED MINDS ASSOCIATION (TUMA)</h1>
+    <p>Finance Management System</p>
+    <p>Education • Kinship • Unity • Success</p>
+  </header>
+
+  <main>
+    <div class="notice">
+<strong>Demo mode:</strong> This page uses sample figures and
+      temporary browser storage. It is not connected to Supabase,
+      and it is not protected by administrator login. Do not enter
+      real financial or member information yet.
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Total Income</h3>
+        <div class="amount" id="income">₦0.00</div>
+        <p class="muted">Recorded income</p>
+      </div>
+      <div class="card">
+        <h3>Total Expenses</h3>
+        <div class="amount" id="expenses">₦0.00</div>
+        <p class="muted">Recorded expenses</p>
+      </div>
+      <div class="card">
+        <h3>Available Balance</h3>
+        <div class="amount" id="balan
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TUMA Finance Management</title>
+  <style>
+    :root {
+      --navy: #10264a;
+      --gold: #d5ad45;
+      --light: #f4f6fa;
+      --white: #ffffff;
+      --text: #253247;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--light);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 24px 18px;
+      border-bottom: 5px solid var(--gold);
+    }
+
+    header h1 { margin: 0 0 8px; font-size: 24px; }
+    header p { margin: 0; line-height: 1.5; }
+
+    main {
+      width: min(1100px, 94%);
+      margin: 24px auto;
+    }
+
+    .notice {
+      background: #fff4d6;
+      border-left: 4px solid var(--gold);
+      padding: 13px;
+      border-radius: 6px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 3px 12px #15284a12;
+      border-top: 3px solid var(--gold);
+    }
+
+    .card h3 { margin: 0 0 12px; font-size: 15px; }
+    .amount { font-size: 24px; font-weight: bold; color: var(--navy); }
+    .muted { color: #657086; font-size: 13px; }
+
+    section {
+      background: white;
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px #15284a12;
+    }
+
+    h2 { color: var(--navy); margin-top: 0; }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    label { display: block; font-weight: bold; font-size: 14px; }
+
+    input, select, textarea {
+      width: 100%;
+      margin-top: 7px;
+      padding: 11px;
+      border: 1px solid #cbd2df;
+      border-radius: 6px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea { resize: vertical; }
+    .full { grid-column: 1 / -1; }
+
+    button, .back {
+      border: 0;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .primary { background: var(--navy); color: white; }
+    .gold { background: var(--gold); color: var(--navy); }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 560px; }
+    th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid #e3e7ef; }
+    th { color: var(--navy); background: #f4f6fa; }
+    footer { text-align: center; padding: 25px; color: #657086; }
+
+    @media print {
+      form, .notice, .actions, .back { display: none; }
+      body { background: white; }
+      .card, section { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>THE UNITED MINDS ASSOCIATION (TUMA)</h1>
+    <p>Finance Management System</p>
+    <p>Education • Kinship • Unity • Success</p>
+  </header>
+
+  <main>
+    <div class="notice">
+      <strong>Demo mode:</strong> This page uses sample figures and
+      temporary browser storage. It is not connected to Supabase,
+      and it is not protected by administrator login. Do not enter
+      real financial or member information yet.
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Total Income</h3>
+        <div class="amount" id="income">₦0.00</div>
+        <p class="muted">Recorded income</p>
+      </div>
+      <div class="card">
+        <h3>Total Expenses</h3>
+        <div class="amount" id="expenses">₦0.00</div>
+        <p class="muted">Recorded expenses</p>
+      </div>
+      <div class="card">
+        <h3>Available Balance</h3>
+        <div class="amount" id="balance">₦0.00</div>
+        <p class="muted">Income minus expenses</p>
+      </div>
+    </div>
+
+    <section>
+      <h2>Record a Transaction</h2>
+      <form id="transactionForm">
+        <label>
+          Transaction Type
+          <select id="type" required>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </label>
+
+        <label>
+          Amount (₦)
+          <input id="amount" type="number" min="0.01"
+                 step="0.01" required placeholder="e.g. 5000">
+        </label>
+
+        <label>
+          Date
+          <input id="date" type="date" required>
+        </label>
+
+        <label>
+          Category
+          <select id="category" required>
+            <option value="Monthly Dues">Monthly Dues</option>
+            <option value="Donations">Donations</option>
+            <option value="Registration">Registration</option>
+            <option value="Programme">Programme</option>
+            <option value="Transport">Transport</option>
+            <option value="Office">Office</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+
+        <label class="full">
+          Description
+          <textarea id="description" rows="2" required
+                    placeholder="Purpose or details of transaction"></textarea>
+        </label>
+
+        <div class="full actions">
+          <button class="primary" type="submit">Add Transaction</button>
+          <button class="gold" type="reset">Clear Form</button>
+        </div>
+      </form>
+      <p id="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section>
+      <h2>Transaction History</h2>
+      <p class="muted">Records entered in this browser only.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Category / Description</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="records">
+            <tr><td colspan="5">No transactions recorded yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="actions" style="margin-top:16px">
+        <button class="primary" type="button" onclick="window.print()">
+          Print Report
+        </button>
+        <a class="back" href="admin.html"
+           style="background:#e4e8f0;color:#10264a">
+          Back to Dashboard
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    TUMA Association • Finance Management
+  </footer>
+
+  <script>
+    const STORAGE_KEY = "tuma_finance_demo_v1";
+    const form = document.getElementById("transactionForm");
+    const money = value => "₦" + value.toLocaleString("en-NG", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    let transactions = [];
+
+    // Temporary demo records only. No real financial data should be entered.
+    try {
+      const saved = sessionStorage.getItem(STORAGE_KEY);
+      transactions = saved ? JSON.parse(saved) : [];
+      if (!Array.isArray(transactions)) transactions = [];
+    } catch (error) {
+      transactions = [];
+    }
+
+    document.getElementById("date").value =
+      new Date().toISOString().slice(0, 10);
+
+    function saveDemo() {
+      try {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+      } catch (error) {
+        document.getElementById("message").textContent =
+          "Browser storage is unavailable. Records may not persist.";
+      }
+    }
+
+    function render() {
+      const income = transactions
+        .filter(t => t.type === "income")
+        .reduce((sum, t) => sum + t.amount, 0);
+
+      const expenses = transactions
+        .filter(t => t.type === "expense")
+        .reduce((sum, t) => sum + t.amount, 0);
+
+      document.getElementById("income").textContent = money(income);
+      document.getElementById("expenses").textContent = money(expenses);
+      document.getElementById("balance").textContent = money(income - expenses);
+
+      const tbody = document.getElementById("records");
+      tbody.replaceChildren();
+
+      if (!transactions.length) {
+        const row = tbody.insertRow();
+        const cell = row.insertCell();
+        cell.colSpan = 5;
+        cell.textContent = "No transactions recorded yet.";
+        return;
+      }
+
+      [...transactions].reverse().forEach(t => {
+        const row = tbody.insertRow();
+        [t.date, t.type === "income" ? "Income" : "Expense",
+          t.category + " — " + t.description, money(t.amount)]
+          .forEach(value => {
+            const cell = row.insertCell();
+            cell.textContent = value;
+          });
+
+        const actionCell = row.insertCell();
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "gold";
+        button.textContent = "Delete";
+        button.addEventListener("click", () => {
+          if (confirm("Delete this demo transaction?")) {
+            transactions = transactions.filter(item => item.id !== t.id);
+            saveDemo();
+            render();
+          }
+        });
+        actionCell.appendChild(button);
+      });
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+
+      const amount = Number(document.getElementById("amount").value);
+      const description = document.getElementById("description").value.trim();
+
+      if (!Number.isFinite(amount) || amount <= 0 || !description) {
+        document.getElementById("message").textContent =
+          "Enter a valid amount and description.";
+        return;
+      }
+
+      transactions.push({
+        id: Date.now().toString() + Math.random().toString(36).slice(2),
+        type: document.getElementById("type").value,
+        amount,
+        date: document.getElementById("date").value,
+        category: document.getElementById("category").value,
+        description
+      });
+
+      saveDemo();
+      render();
+      form.reset();
+      document.getElementById("date").value =
+        new Date().toISOString().slice(0, 10);
+      document.getElementById("message").textContent =
+        "Demo transaction added in this browser session.";
+    });
+
+    render();
+  </script>
+</body>
+</html>
+￼Enterce">₦0.00</div>
+        <p class="muted">Income minus expenses</p>
+      </div>
+    </div>
+
+    <section>
+      <h2>Record a Transaction</h2>
+      <form id="transactionForm">
+        <label>
+          Transaction Type
+          <select id="type" required>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </label>
+
+        <label>
+          Amount (₦)
+          <input id="amount" type="number" min="0.01"
+                 step="0.01" required placeholder="e.g. 5000">
+        </label>
+
+        <label>
+          Date
+          <input id="date" type="date" required>
+        </label>
+
+        <label>
+          Category
+          <select id="category" required>
+            <option value="Monthly Dues">Monthly Dues</option>
+            <option value="Donations">Donations</option>
+            <option value="Registration">Registration</option>
+            <option value="Programme">Programme</option>
+            <option value="Transport">Transport</option>
+            <option value="Office">Office</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+
+        <label class="full">
+          Description
+          <textarea id="description" rows="2" required
+                    placeholder="Purpose or details of transaction"></textarea>
+        </label>
+
+        <div class="full actions">
+          <button class="primary" type="submit">Add Transaction</button>
+          <button class="gold" type="reset">Clear Form</button>
+        </div>
+      </form>
+      <p id="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section>
+      <h2>Transaction History</h2>
+      <p class="muted">Records entered in this browser only.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Category / Description</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="records">
+            <tr><td colspan="5">No transactions recorded yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="actions" style="margin-top:16px">
+        <button class="primary" type="button" onclick="window.print()">
+          Print Report
+        </button>
+        <a class="back" href="admin.html"
+           style="background:#e4e8f0;color:#10264a">
+          Back to Dashboard
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    TUMA Association • Finance Management
+  </footer>
+
+  <script>
+    const STORAGE_KEY = "tuma_finance_demo_v1";
+    const form = document.getElementById("transactionForm");
